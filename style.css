@@ -1,0 +1,316 @@
+/* Improved CSS Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font: inherit; /* Inherit font settings */
+  vertical-align: baseline; /* Normalize vertical alignment */
+}
+
+@font-face {
+  font-family: gameFont;
+  src: url("SpenbebGame-R9q46.otf");
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 16px; /* Base font size */
+  background-color: #ead2a2;
+  -webkit-font-smoothing: antialiased; /* Improve font rendering */
+  -moz-osx-font-smoothing: grayscale; /* Improve font rendering */
+}
+
+.gameHead {
+  font-family: gameFont;
+  font-size: 2.2rem;
+  padding-top: 1px;
+}
+
+.selectedBead {
+  border: 2px solid gold !important;
+  box-shadow: 0 0 10px #ffd700, inset 0 0 5px #ffd700 !important;
+}
+#beadHead1 {
+  color: #e53935;
+  margin-right: 0.3rem;
+}
+#beadHead2 {
+  color: #45a049;
+}
+
+.hollow {
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameContainer {
+  width: min(95vw, 95vh); /* Take the smaller of viewport width or height */
+  height: min(95vw, 95vh); /* Maintain square aspect ratio */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.board {
+  width: 100%;
+  height: 100%;
+  background-image: url("grid-game-board.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  cursor: pointer;
+}
+
+.playerTurn {
+  font-family: cursive;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.bead {
+  position: absolute;
+  width: calc(min(95vw, 95vh) * 0.06); /* Responsive bead size */
+  height: calc(min(95vw, 95vh) * 0.06);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+#startBtn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 3rem;
+  text-transform: uppercase;
+  background: transparent;
+  font-weight: 600;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  cursor: pointer;
+  background-color: rgb(231, 48, 48);
+  color: black;
+  border: 2px solid wheat;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+#startBtn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 0%;
+  height: 100%;
+  transition: 0.6s ease-out;
+  background-color: #45a049;
+}
+#startBtn:hover {
+  color: wheat;
+  border: 2px solid gray;
+}
+#startBtn:hover::before {
+  width: 100%;
+}
+/* CSS Variables for Grid Positions */
+:root {
+  --left-1: 22.3%;
+  --left-2: 36.25%;
+  --left-3: 50%;
+  --left-4: 63.5%;
+  --left-5: 77%;
+  --top-1: 16.67%;
+  --top-2: 33.33%;
+  --top-3: 50%;
+  --top-4: 66.67%;
+  --top-5: 83.33%;
+}
+
+[data-position="0-0"] {
+  left: var(--left-1);
+  top: var(--top-1);
+}
+[data-position="0-1"] {
+  left: var(--left-2);
+  top: var(--top-1);
+}
+[data-position="0-2"] {
+  left: var(--left-3);
+  top: var(--top-1);
+}
+[data-position="0-3"] {
+  left: var(--left-4);
+  top: var(--top-1);
+}
+[data-position="0-4"] {
+  left: var(--left-5);
+  top: var(--top-1);
+}
+
+[data-position="1-0"] {
+  left: var(--left-1);
+  top: var(--top-2);
+}
+[data-position="1-1"] {
+  left: var(--left-2);
+  top: var(--top-2);
+}
+[data-position="1-2"] {
+  left: var(--left-3);
+  top: var(--top-2);
+}
+[data-position="1-3"] {
+  left: var(--left-4);
+  top: var(--top-2);
+}
+[data-position="1-4"] {
+  left: var(--left-5);
+  top: var(--top-2);
+}
+
+/* Middle row positions */
+[data-position="2-0"] {
+  left: var(--left-1);
+  top: var(--top-3);
+}
+[data-position="2-1"] {
+  left: var(--left-2);
+  top: var(--top-3);
+}
+/* 2-2 is center position - empty */
+
+[data-position="2-2"] {
+  left: var(--left-3); /* This is 50% - center horizontally */
+  top: var(--top-3); /* This is 50% - center vertically */
+}
+
+[data-position="2-3"] {
+  left: var(--left-4);
+  top: var(--top-3);
+}
+[data-position="2-4"] {
+  left: var(--left-5);
+  top: var(--top-3);
+}
+
+/* Bottom rows (red beads) */
+[data-position="3-0"] {
+  left: var(--left-1);
+  top: var(--top-4);
+}
+[data-position="3-1"] {
+  left: var(--left-2);
+  top: var(--top-4);
+}
+[data-position="3-2"] {
+  left: var(--left-3);
+  top: var(--top-4);
+}
+[data-position="3-3"] {
+  left: var(--left-4);
+  top: var(--top-4);
+}
+[data-position="3-4"] {
+  left: var(--left-5);
+  top: var(--top-4);
+}
+
+[data-position="4-0"] {
+  left: var(--left-1);
+  top: var(--top-5);
+}
+[data-position="4-1"] {
+  left: var(--left-2);
+  top: var(--top-5);
+}
+[data-position="4-2"] {
+  left: var(--left-3);
+  top: var(--top-5);
+}
+[data-position="4-3"] {
+  left: var(--left-4);
+  top: var(--top-5);
+}
+[data-position="4-4"] {
+  left: var(--left-5);
+  top: var(--top-5);
+}
+
+/* Media Query for Screens with Width 500px or Less */
+@media screen and (max-width: 500px) {
+  .bead {
+    width: calc(min(93vw, 93vh) * 0.065);
+    height: calc(min(93vw, 93vh) * 0.065);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  :root {
+    --left-1: 24%;
+    --left-2: 37%;
+    --left-3: 50%;
+    --left-4: 62.7%;
+    --left-5: 75.3%;
+  }
+
+  #startBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    border-radius: 3.5rem;
+  }
+
+  .gameHead {
+    font-size: 1.8rem;
+  }
+}
+
+/* Prevent touch callout on mobile */
+@media (hover: none) {
+  .bead {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+.bead:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.bead.green {
+  background: linear-gradient(145deg, #4caf50, #45a049);
+  border: 2px solid #45a049;
+}
+
+.bead.red {
+  background: linear-gradient(145deg, #f44336, #e53935);
+  border: 2px solid #e53935;
+}
+.hollow {
+  position: absolute;
+  width: calc(min(95vw, 95vh) * 0.06); /* Same size as beads */
+  height: calc(min(95vw, 95vh) * 0.06);
+  border-radius: 50%;
+  border: 1px solid #6d6969;
+  background-color: rgba(102, 99, 99, 0.603);
+  transform: translate(-50%, -50%);
+  animation: pulse-hollow 1.5s infinite;
+}
+.empty {
+  display: none;
+}

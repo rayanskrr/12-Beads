@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Game Over</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+      }
+      .game-end-container {
+        text-align: center;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 1s ease-out;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .game-end-container.player1 {
+        background-color: rgba(255, 0, 0, 0.1);
+        color: #8b0000;
+      }
+      .game-end-container.player2 {
+        background-color: rgba(0, 128, 0, 0.1);
+        color: #006400;
+      }
+      .winner-text {
+        font-size: 4rem;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        animation: bounce 1s infinite alternate;
+        font-weight: bold;
+      }
+      .player1 .winner-text {
+        text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.3);
+      }
+      .player2 .winner-text {
+        text-shadow: 2px 2px 4px rgba(0, 128, 0, 0.3);
+      }
+      .restart-btn {
+        background-color: #fff;
+        border: 3px solid currentColor;
+        color: currentColor;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+      }
+      .restart-btn:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+      }
+      .player1 .restart-btn {
+        border-color: #8b0000;
+        color: #8b0000;
+      }
+      .player2 .restart-btn {
+        border-color: #006400;
+        color: #006400;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes bounce {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-20px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game-end-container" class="game-end-container">
+      <h1 id="winner-message" class="winner-text"></h1>
+      <button id="restart-btn" class="restart-btn" onclick="restartGame()">
+        Restart Game
+      </button>
+    </div>
+
+    <script>
+      // Get the winner from URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const winner = urlParams.get("winner");
+
+      const gameEndSound = new Audio("gameEnd.wav");
+      const restart = new Audio("gameRestart.wav");
+      gameEndSound.currentTime = 0;
+      gameEndSound.play();
+
+      // Update winner message and styling
+      if (winner) {
+        const container = document.getElementById("game-end-container");
+        const winnerMessage = document.getElementById("winner-message");
+
+        winnerMessage.textContent = winner;
+
+        // More precise class assignment
+        if (winner.includes("Player 1")) {
+          container.classList.add("player1");
+          container.classList.remove("player2");
+        } else if (winner.includes("Player 2")) {
+          container.classList.add("player2");
+          container.classList.remove("player1");
+        }
+      }
+
+      function restartGame() {
+        restart.currentTime = 0;
+        restart.play();
+        // Redirect back to the main game page after delay
+        setTimeout(() => {
+          window.location.href = "main.html";
+        }, 500);
+      }
+    </script>
+  </body>
+</html>
